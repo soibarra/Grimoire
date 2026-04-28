@@ -1,5 +1,7 @@
 import HTMLFlipBook from 'react-pageflip';
 
+import bookPages from './bookPages';
+
 import './App.css';
 
 function App() {
@@ -42,41 +44,17 @@ function App() {
 
           </div>
 
-          <div className="page">
+          {bookPages.map((page) => (
 
-            <h2>Chapter I</h2>
+            <div className="page" key={page.title}>
 
-            <p>
+              <h2>{page.title}</h2>
 
-              This is the first inside page of your grimoire.
+              <p>{page.body}</p>
 
-            </p>
+            </div>
 
-          </div>
-
-          <div className="page">
-
-            <h2>The First Spell</h2>
-
-            <p>
-
-              This is where your spell description, story, or artwork can go.
-
-            </p>
-
-          </div>
-
-          <div className="page">
-
-            <h2>Notes</h2>
-
-            <p>
-
-              Add more magical notes, sketches, ingredients, or lore here.
-
-            </p>
-
-          </div>
+          ))}
 
           <div className="page cover-page back-cover">
 
