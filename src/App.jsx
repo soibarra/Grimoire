@@ -52,6 +52,20 @@ function App() {
 
               <p>{page.body}</p>
 
+              {page.image && (
+
+                <img
+
+                  className="page-image"
+
+                  src={page.image}
+
+                  alt=""
+
+                />
+
+              )}
+
             </div>
 
           ))}
