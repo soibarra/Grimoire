@@ -58,9 +58,11 @@ body {
 
 .page {
 
+  position: relative;
+
   background:
 
-    linear-gradient(90deg, rgba(80, 50, 20, 0.14), transparent 16%),
+    linear-gradient(90deg, rgba(80, 50, 20, 0.18), transparent 18%),
 
     #f1dfb8;
 
@@ -76,11 +78,57 @@ body {
 
 }
 
+.page::after {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background-image: url("https://www.transparenttextures.com/patterns/paper.png");
+
+  opacity: 0.25;
+
+  pointer-events: none;
+
+}
+
+.page::before {
+
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+
+  bottom: 0;
+
+  width: 40px;
+
+  left: 0;
+
+  background: linear-gradient(
+
+    to right,
+
+    rgba(0, 0, 0, 0.15),
+
+    transparent
+
+  );
+
+  pointer-events: none;
+
+}
+
 .page h2 {
 
   font-size: 32px;
 
   margin-top: 0;
+
+  letter-spacing: 1px;
 
 }
 
@@ -88,7 +136,7 @@ body {
 
   font-size: 18px;
 
-  line-height: 1.6;
+  line-height: 1.7;
 
 }
 
@@ -135,5 +183,13 @@ body {
   margin-top: 24px;
 
   opacity: 0.85;
+
+}
+
+.book-wrapper h1,
+
+.page h2 {
+
+  font-family: 'Uncial Antiqua', serif;
 
 }
