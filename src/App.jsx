@@ -16,11 +16,19 @@ function App() {
 
   const totalPages = bookPages.length + 4;
 
+  const maxStackCount = bookPages.length;
+
   const isOpen = currentPage > 0;
 
-  const showLeftStack = currentPage > 1;
+  const leftStackCount = Math.max(0, currentPage - 1);
 
-  const showRightStack = currentPage < totalPages - 3;
+  const rightStackCount = Math.max(0, totalPages - currentPage - 3);
+
+  const stackUnit = 92 / maxStackCount;
+
+  const leftStackWidth = leftStackCount * stackUnit;
+
+  const rightStackWidth = rightStackCount * stackUnit;
 
   const playFlipSound = () => {
 
@@ -46,17 +54,15 @@ function App() {
 
         <div
 
-          className={[
+          className={`book-stage ${isOpen ? 'book-open' : ''}`}
 
-            'book-stage',
+          style={{
 
-            isOpen ? 'book-open' : '',
+            '--left-stack-width': `${leftStackWidth}px`,
 
-            showLeftStack ? 'show-left-stack' : '',
+            '--right-stack-width': `${rightStackWidth}px`,
 
-            showRightStack ? 'show-right-stack' : '',
-
-          ].join(' ')}
+          }}
 
         >
 

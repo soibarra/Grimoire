@@ -76,7 +76,7 @@ body {
 
 }
 
-/* Side page stacks */
+/* Dynamic side page stacks */
 
 .side-pages {
 
@@ -84,17 +84,13 @@ body {
 
 }
 
-.show-left-stack .left-side-pages,
-
-.show-right-stack .right-side-pages {
+.book-open .side-pages {
 
   display: block;
 
   position: absolute;
 
   top: 0;
-
-  width: 92px;
 
   height: 100%;
 
@@ -126,11 +122,15 @@ body {
 
   z-index: 1;
 
+  transition: width 0.25s ease, left 0.25s ease, right 0.25s ease;
+
 }
 
 .left-side-pages {
 
-  left: -92px;
+  width: var(--left-stack-width);
+
+  left: calc(var(--left-stack-width) * -1);
 
   border-radius: 14px 0 0 14px;
 
@@ -146,7 +146,9 @@ body {
 
 .right-side-pages {
 
-  right: -92px;
+  width: var(--right-stack-width);
+
+  right: calc(var(--right-stack-width) * -1);
 
   border-radius: 0 14px 14px 0;
 
