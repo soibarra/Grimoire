@@ -4,7 +4,19 @@ import bookPages from './bookPages';
 
 import './App.css';
 
+import flipSoundFile from './assets/sounds/page-flip.mp3';
+
 function App() {
+
+  const playFlipSound = () => {
+
+    const flipSound = new Audio(flipSoundFile);
+
+    flipSound.volume = 0.45;
+
+    flipSound.play();
+
+  };
 
   return (
 
@@ -22,17 +34,11 @@ function App() {
 
           size="fixed"
 
-          minWidth={315}
-
-          maxWidth={900}
-
-          minHeight={400}
-
-          maxHeight={700}
-
           showCover={true}
 
           className="book"
+
+          onFlip={playFlipSound}
 
         >
 
@@ -54,15 +60,7 @@ function App() {
 
               {page.image && (
 
-                <img
-
-                  className="page-image"
-
-                  src={page.image}
-
-                  alt=""
-
-                />
+                <img className="page-image" src={page.image} alt="" />
 
               )}
 
