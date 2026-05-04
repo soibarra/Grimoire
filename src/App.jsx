@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 import HTMLFlipBook from 'react-pageflip';
 
@@ -11,6 +11,16 @@ import flipSoundFile from './assets/sounds/page-flip.mp3';
 function App() {
 
   const flipSoundRef = useRef(null);
+
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const totalPages = bookPages.length + 4;
+
+  const isOpen = currentPage > 0;
+
+  const showLeftStack = currentPage > 1;
+
+  const showRightStack = currentPage < totalPages - 3;
 
   const playFlipSound = () => {
 
@@ -34,63 +44,103 @@ function App() {
 
         <h1>Grimoire</h1>
 
-        <HTMLFlipBook
+        <div
 
-          width={450}
+          className={[
 
-          height={560}
+            'book-stage',
 
-          size="fixed"
+            isOpen ? 'book-open' : '',
 
-          showCover={true}
+            showLeftStack ? 'show-left-stack' : '',
 
-          className="book"
+            showRightStack ? 'show-right-stack' : '',
 
-          onChangeState={(event) => {
-
-            if (event.data === 'user_fold' || event.data === 'flipping') {
-
-              playFlipSound();
-
-            }
-
-          }}
+          ].join(' ')}
 
         >
 
-          <div className="page cover-page">
+          <div className="side-pages left-side-pages"></div>
 
-            <h2>Grimoire</h2>
+          <div className="side-pages right-side-pages"></div>
 
-            <p>A medieval spell book</p>
+          <HTMLFlipBook
 
-          </div>
+            width={450}
 
-          {bookPages.map((page) => (
+            height={560}
 
-            <div className="page" key={page.title}>
+            size="fixed"
 
-              <h2>{page.title}</h2>
+            showCover={true}
 
-              <p>{page.body}</p>
+            usePortrait={false}
 
-              {page.image && (
+            drawShadow={true}
 
-                <img className="page-image" src={page.image} alt="" />
+            flippingTime={900}
 
-              )}
+            maxShadowOpacity={0.45}
+
+            className="book"
+
+            onFlip={(event) => {
+
+              setCurrentPage(event.data);
+
+            }}
+
+            onChangeState={(event) => {
+
+              if (event.data === 'user_fold' || event.data === 'flipping') {
+
+                playFlipSound();
+
+              }
+
+            }}
+
+          >
+
+            <div className="page cover-page front-cover" data-density="hard">
+
+              <h2>Grimoire</h2>
+
+              <p>A medieval spell book</p>
 
             </div>
 
-          ))}
+            <div className="page inside-cover-page" data-density="hard"></div>
 
-          <div className="page cover-page back-cover">
+            {bookPages.map((page) => (
 
-            <h2>The End</h2>
+              <div className="page" key={page.title}>
 
-          </div>
+                <h2>{page.title}</h2>
 
-        </HTMLFlipBook>
+                <p>{page.body}</p>
+
+                {page.image && (
+
+                  <img className="page-image" src={page.image} alt="" />
+
+                )}
+
+              </div>
+
+            ))}
+
+            <div className="page inside-cover-page" data-density="hard"></div>
+
+            <div className="page cover-page back-cover" data-density="hard">
+
+              <h2>The End</h2>
+
+            </div>
+
+          </HTMLFlipBook>
+
+        </div>
 
       </section>
 
