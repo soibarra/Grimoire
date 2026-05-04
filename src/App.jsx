@@ -1,3 +1,5 @@
+import { useRef } from 'react';
+
 import HTMLFlipBook from 'react-pageflip';
 
 import bookPages from './bookPages';
@@ -8,19 +10,25 @@ import flipSoundFile from './assets/sounds/page-flip.mp3';
 
 function App() {
 
+  const flipSoundRef = useRef(null);
+
   const playFlipSound = () => {
 
-    const flipSound = new Audio(flipSoundFile);
+    if (!flipSoundRef.current) return;
 
-    flipSound.volume = 0.45;
+    flipSoundRef.current.currentTime = 0;
 
-    flipSound.play();
+    flipSoundRef.current.volume = 0.45;
+
+    flipSoundRef.current.play();
 
   };
 
   return (
 
     <main className="app">
+
+      <audio ref={flipSoundRef} src={flipSoundFile} preload="auto" />
 
       <section className="book-wrapper">
 
@@ -38,7 +46,15 @@ function App() {
 
           className="book"
 
-          onFlip={playFlipSound}
+          onChangeState={(event) => {
+
+            if (event.data === 'user_fold' || event.data === 'flipping') {
+
+              playFlipSound();
+
+            }
+
+          }}
 
         >
 
